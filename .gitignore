@@ -1,0 +1,7 @@
+*.py
+*.sh
+*.sub
+*.cc
+*.out
+*.err
+*.log
