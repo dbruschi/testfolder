@@ -1,0 +1,15 @@
+#!/bin/bash
+#set -o nounset
+
+APPDIR=/afs/cern.ch/work/d/dbruschi/TrackingPOG/CMSSW_12_4_5/src/
+JOBDIR=$APPDIR/DQM/TrackingMonitorSource/test/13p6_Run2022C
+LOGDIR=/eos/home-d/dbruschi/DataMC/13p6_Run2022C/log
+cd $APPDIR
+eval $(scramv1 runtime -sh)
+cd $JOBDIR
+uname -a > $LOGDIR/step1_INDEX.runlog 2>&1
+ulimit -c 0
+export X509_USER_PROXY=/afs/cern.ch/user/d/dbruschi/private/x509up/x509up_u132335
+voms-proxy-info -all >> $LOGDIR/step1_INDEX.runlog 2>&1
+cmsRun step1_cfg_INDEX.py >> $LOGDIR/step1_INDEX.runlog 2>&1
+exit $?
